@@ -1,24 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
+import { SolarWatch } from '@/game/SolarWatch';
 export const Route = createFileRoute("/")({
-  component: Index,
+  ssr: false,
+  head: () => ({ meta: [
+    { title: 'Solar Watch — Selene Moon Outpost' },
+    { name: 'description', content: 'Direct a lunar outpost, explore south-pole craters and protect four astronauts from space weather in Solar Watch.' },
+    { property: 'og:title', content: 'Solar Watch — Selene Moon Outpost' },
+    { property: 'og:description', content: 'Build, explore and survive on the Moon in this educational space mission.' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+  ] }),
+  component: SolarWatch,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
